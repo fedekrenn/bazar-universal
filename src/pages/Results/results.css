@@ -1,0 +1,36 @@
+.results ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.results header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.results img {
+    width: 50px;
+}
+
+li.card {
+    display: flex;
+    gap: 20px;
+    min-height: 150px;
+    align-items: center;
+}
+
+li.card img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    aspect-ratio: 1;
+}
+
+li.card .price-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
