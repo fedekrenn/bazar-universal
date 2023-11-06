@@ -1,6 +1,8 @@
 import './results.css'
 import img from '../../assets/logo.svg'
 import { useEffect, useState } from 'react'
+// React Router
+import { useSearchParams } from 'react-router-dom'
 // MUI
 import Rating from '@mui/material/Rating'
 // Components
@@ -11,10 +13,13 @@ import { getProducts } from '../../utils/getData.js'
 export default function Results() {
   const [products, setProducts] = useState([])
 
+  const [searchParams] = useSearchParams()
+  const category = searchParams.get('search')
+
   useEffect(() => {
-    getProducts('smart')
-      .then((data) => setProducts(data))
-  }, [])
+    getProducts(category)
+      .then(data => setProducts(data))
+  }, [category])
 
   return (
     <main className='results'>
@@ -22,7 +27,7 @@ export default function Results() {
         <img src={img} alt='Imagen de logo' />
         <Search />
       </header>
-      <h1>Resultados de búsqueda de "smart": {products.length}</h1>
+      <h1>Resultados de búsqueda de "{category}": {products.length}</h1>
       <ul>
         {products.map((product) => (
           <li key={product.id} className='card'>
