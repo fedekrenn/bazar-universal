@@ -14,11 +14,8 @@ li.card {
 }
 
 li.card img {
-  border-radius: 50%;
   width: 100px;
   height: 100px;
-  object-fit: cover;
-  aspect-ratio: 1;
 }
 
 li.card .price-section {
