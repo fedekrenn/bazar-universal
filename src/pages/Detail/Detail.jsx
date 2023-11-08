@@ -35,7 +35,7 @@ export default function Detail() {
               </div>
             </div>
             <h1>{product.title} - {product.brand}</h1>
-            <div>
+            <div className='sub-info'>
               <div>
                 <h2>{product.price}$</h2>
                 <p>{product.stock} disponibles</p>
