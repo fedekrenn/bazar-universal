@@ -24,8 +24,6 @@ export default function DetailSkeleton() {
         <Skeleton animation='wave' variant='text' width={250} height={30} />
         <Skeleton animation='wave' variant='text' width={250} height={30} />
       </Box>
-
     </>
-
   )
 }
