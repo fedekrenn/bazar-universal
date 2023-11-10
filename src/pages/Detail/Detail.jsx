@@ -10,11 +10,14 @@ import Header from '../../components/Header/Header.jsx'
 import DetailSkeleton from '../../components/Skeleton/DetailSkeleton/DetailSkeleton.jsx'
 // Utils
 import { getProductById } from '../../utils/getData.js'
+// Hooks
+import useSeo from '../../customHooks/useSeo.js'
 
 export default function Detail() {
   const [product, setProduct] = useState(null)
 
   const { id } = useParams()
+  useSeo({ title: product?.title, description: product?.description })
 
   useEffect(() => {
     getProductById(parseInt(id))

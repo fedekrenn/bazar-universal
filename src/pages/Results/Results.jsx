@@ -9,12 +9,16 @@ import Header from '../../components/Header/Header.jsx'
 import ResultsSkeleton from '../../components/Skeleton/ResultsSkeleton/ResultsSkeleton'
 // Utils
 import { getProducts } from '../../utils/getData.js'
+// Hooks
+import useSeo from '../../customHooks/useSeo.js'
 
 export default function Results() {
   const [products, setProducts] = useState([])
 
   const [searchParams] = useSearchParams()
   const category = searchParams.get('search')
+
+  useSeo({ title: `Búsqueda de "${category}"`, description: `Resultados de búsqueda de ${category}` })
 
   useEffect(() => {
     getProducts(category)
