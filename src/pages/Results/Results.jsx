@@ -14,6 +14,7 @@ import useSeo from '../../customHooks/useSeo.js'
 
 export default function Results() {
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const [searchParams] = useSearchParams()
   const category = searchParams.get('search')
@@ -22,16 +23,22 @@ export default function Results() {
 
   useEffect(() => {
     getProducts(category)
-      .then(data => setProducts(data))
+      .then(data => {
+        setLoading(false)
+        setProducts(data)
+      })
 
-    return () => setProducts([])
+    return () => {
+      setProducts([])
+      setLoading(true)
+    }
   }, [category])
 
   return (
     <>
       <Header />
       <main className='results'>
-        {products.length === 0
+        {loading
           ? Array.from(new Array(3)).map((_, index) => <ResultsSkeleton key={index} />)
           : (
             <>

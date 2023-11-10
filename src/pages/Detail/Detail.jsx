@@ -15,20 +15,24 @@ import useSeo from '../../customHooks/useSeo.js'
 
 export default function Detail() {
   const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const { id } = useParams()
   useSeo({ title: product?.title, description: product?.description })
 
   useEffect(() => {
     getProductById(parseInt(id))
-      .then(data => setProduct(data))
+      .then(data => {
+        setProduct(data)
+        setLoading(false)
+      })
   }, [id])
 
   return (
     <>
       <Header />
       <main className='detail'>
-        {!product
+        {loading
           ? <DetailSkeleton />
           : (
             <>
