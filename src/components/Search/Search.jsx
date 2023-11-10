@@ -5,14 +5,18 @@ export default function Search() {
 
   const handleSearch = (e) => {
     e.preventDefault()
-    const category = e.currentTarget.searchCategory.value
+    const category = e.currentTarget.searchCategory.value.trim()
+
+    if (!category) return
+    if (category.length < 3) return alert('La búsqueda debe tener al menos 3 caracteres')
+
     navigate(`/items?search=${category}`)
   }
 
   return (
     <form onSubmit={handleSearch}>
       <input type='text' name='searchCategory' placeholder='laptops, smartphones, ...' />
-      <button>Buscar</button>
+      <button type='submit'>Buscar</button>
     </form>
   )
 }
