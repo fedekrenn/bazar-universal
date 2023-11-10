@@ -1,43 +1,68 @@
 import './results.css'
-import img from '../../assets/logo.svg'
 import { useEffect, useState } from 'react'
+// Router
+import { useSearchParams, Link } from 'react-router-dom'
 // MUI
 import Rating from '@mui/material/Rating'
 // Components
-import Search from '../../components/Search/Search.jsx'
+import Header from '../../components/Header/Header.jsx'
+import ResultsSkeleton from '../../components/Skeleton/ResultsSkeleton/ResultsSkeleton'
 // Utils
 import { getProducts } from '../../utils/getData.js'
+// Hooks
+import useSeo from '../../customHooks/useSeo.js'
 
 export default function Results() {
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const [searchParams] = useSearchParams()
+  const category = searchParams.get('search')
+
+  useSeo({ title: `Búsqueda de "${category}"`, description: `Resultados de búsqueda de ${category}` })
 
   useEffect(() => {
-    getProducts('smart')
-      .then((data) => setProducts(data))
-  }, [])
+    getProducts(category)
+      .then(data => {
+        setLoading(false)
+        setProducts(data)
+      })
+
+    return () => {
+      setProducts([])
+      setLoading(true)
+    }
+  }, [category])
 
   return (
-    <main className='results'>
-      <header>
-        <img src={img} alt='Imagen de logo' />
-        <Search />
-      </header>
-      <h1>Resultados de búsqueda de "smart": {products.length}</h1>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id} className='card'>
-            <img src={product.thumbnail} alt={product.title} />
-            <div>
-              <h2>{product.title}</h2>
-              <p>{product.description}</p>
-              <div className='price-section'>
-                <strong>{product.price}$</strong>
-                <Rating name='read-only' value={product.rating} precision={0.2} size='small' readOnly />
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </main>
+    <>
+      <Header />
+      <main className='results'>
+        {loading
+          ? Array.from(new Array(3)).map((_, index) => <ResultsSkeleton key={index} />)
+          : (
+            <>
+              <h1>Resultados de búsqueda de "{category}": {products.length}</h1>
+              <ul>
+                {products.map((product) => (
+                  <Link to={`/items/${product.id}`} key={product.id}>
+                    <li className='card'>
+                      <img className='circle-img' src={product.thumbnail} alt={product.title} />
+                      <div>
+                        <h2>{product.title}</h2>
+                        <p className='description'>{product.description.substring(0, 70)}...</p>
+                        <div className='price-section'>
+                          <strong>{product.price}$</strong>
+                          <Rating name='read-only' value={product.rating} precision={0.2} size='small' readOnly />
+                        </div>
+                      </div>
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            </>
+            )}
+      </main>
+    </>
   )
 }
