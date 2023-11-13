@@ -53,6 +53,7 @@ export default function Detail() {
                 <Rating name='read-only' value={product.rating} precision={0.2} size='small' readOnly />
               </div>
               <p>{product.description}</p>
+              <button className='btn big'>Comprar</button>
             </>
             )}
       </main>
