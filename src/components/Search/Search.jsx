@@ -1,22 +1,34 @@
+import './search.css'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function Search() {
+export default function Search({ showButton }) {
+  const [searchParams, setSearchParams] = useState('')
+
   const navigate = useNavigate()
 
   const handleSearch = (e) => {
     e.preventDefault()
-    const category = e.currentTarget.searchCategory.value.trim()
 
-    if (!category) return
-    if (category.length < 3) return alert('La búsqueda debe tener al menos 3 caracteres')
+    if (!searchParams) return
+    if (searchParams.length < 3) return alert('La búsqueda debe tener al menos 3 caracteres')
 
-    navigate(`/items?search=${category}`)
+    navigate(`/items?search=${searchParams.trim()}`)
   }
 
   return (
-    <form onSubmit={handleSearch}>
-      <input type='text' name='searchCategory' placeholder='laptops, smartphones, ...' />
-      <button type='submit'>Buscar</button>
-    </form>
+    <>
+      <form className='search-product' onSubmit={handleSearch}>
+        <input
+          type='text'
+          name='searchCategory'
+          placeholder='laptops, smartphones, ...'
+          value={searchParams}
+          onChange={(e) => setSearchParams(e.target.value)}
+        />
+        <button type='submit'>🔎</button>
+      </form>
+      {showButton && <button className='btn' onClick={handleSearch}>Buscar</button>}
+    </>
   )
 }
