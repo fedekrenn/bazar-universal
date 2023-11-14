@@ -1,0 +1,18 @@
+main.not-found {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+main.not-found h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  width: 70%;
+}
+
+main.not-found img {
+  width: 200px;
+}
