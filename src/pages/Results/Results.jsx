@@ -7,6 +7,7 @@ import Rating from '@mui/material/Rating'
 // Components
 import Header from '../../components/Header/Header.jsx'
 import ResultsSkeleton from '../../components/Skeleton/ResultsSkeleton/ResultsSkeleton'
+import Empty from '../../components/Empty/Empty.jsx'
 // Utils
 import { getProducts } from '../../utils/getData.js'
 // Hooks
@@ -40,28 +41,30 @@ export default function Results() {
       <main className='results'>
         {loading
           ? Array.from(new Array(3)).map((_, index) => <ResultsSkeleton key={index} />)
-          : (
-            <>
-              <h1>Resultados de búsqueda de "{category}": {products.length}</h1>
-              <ul>
-                {products.map((product) => (
-                  <Link to={`/items/${product.id}`} key={product.id}>
-                    <li className='card'>
-                      <img className='circle-img' src={product.thumbnail} alt={product.title} />
-                      <div>
-                        <h2>{product.title}</h2>
-                        <p className='description'>{product.description.substring(0, 70)}...</p>
-                        <div className='price-section'>
-                          <strong>{product.price}$</strong>
-                          <Rating name='read-only' value={product.rating} precision={0.2} size='small' readOnly />
+          : products.length === 0
+            ? <Empty />
+            : (
+              <>
+                <h1>Resultados de búsqueda de "{category}": {products.length}</h1>
+                <ul>
+                  {products.map((product) => (
+                    <Link to={`/items/${product.id}`} key={product.id}>
+                      <li className='card'>
+                        <img className='circle-img' src={product.thumbnail} alt={product.title} />
+                        <div>
+                          <h2>{product.title}</h2>
+                          <p className='description'>{product.description.substring(0, 70)}...</p>
+                          <div className='price-section'>
+                            <strong>{product.price}$</strong>
+                            <Rating name='read-only' value={product.rating} precision={0.2} size='small' readOnly />
+                          </div>
                         </div>
-                      </div>
-                    </li>
-                  </Link>
-                ))}
-              </ul>
-            </>
-            )}
+                      </li>
+                    </Link>
+                  ))}
+                </ul>
+              </>
+              )}
       </main>
     </>
   )
