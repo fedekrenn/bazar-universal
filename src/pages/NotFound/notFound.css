@@ -10,7 +10,13 @@ main.not-found {
 main.not-found h1 {
   font-size: 1.5rem;
   font-weight: 700;
-  width: 70%;
+  width: 75%;
+}
+
+main.not-found h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
 }
 
 main.not-found img {

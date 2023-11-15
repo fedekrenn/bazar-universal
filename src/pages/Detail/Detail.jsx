@@ -8,6 +8,7 @@ import Rating from '@mui/material/Rating'
 // Components
 import Header from '../../components/Header/Header.jsx'
 import DetailSkeleton from '../../components/Skeleton/DetailSkeleton/DetailSkeleton.jsx'
+import NotFound from '../NotFound/NotFound.jsx'
 // Utils
 import { getProductById } from '../../utils/getData.js'
 // Hooks
@@ -16,6 +17,7 @@ import useSeo from '../../customHooks/useSeo.js'
 export default function Detail() {
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const { id } = useParams()
   useSeo({ title: product?.title, description: product?.description })
@@ -24,9 +26,12 @@ export default function Detail() {
     getProductById(parseInt(id))
       .then(data => {
         setProduct(data)
-        setLoading(false)
       })
+      .catch(err => setError(err))
+      .finally(() => setLoading(false))
   }, [id])
+
+  if (error) return <NotFound message={error.message} />
 
   return (
     <>
