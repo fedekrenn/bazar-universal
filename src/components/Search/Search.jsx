@@ -18,7 +18,7 @@ export default function Search({ showButton }) {
 
   return (
     <>
-      <form className='search-product' onSubmit={handleSearch}>
+      <form className='search-product' onSubmit={handleSearch} aria-label='search'>
         <input
           type='text'
           name='searchCategory'
