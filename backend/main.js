@@ -1,11 +1,15 @@
 import express from 'express'
 import itemRouter from './src/api/routes/item.js'
+import cors from 'cors'
 
 const app = express()
+
 const PORT = process.env.PORT || 3000
+const HOST = 'http://localhost:5173'
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors({ origin: HOST }))
 
 app.use('/api/items', itemRouter)
 
