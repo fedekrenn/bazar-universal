@@ -1,8 +1,8 @@
 import express from 'express'
-import itemRouter from './src/api/routes/items.js'
+import itemRouter from './src/api/routes/item.js'
 
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

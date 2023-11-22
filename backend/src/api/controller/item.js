@@ -1,10 +1,7 @@
-import { Router } from 'express'
 import Item from '../../model/Item.js'
-
-const itemRouter = Router()
 const itemContainer = new Item()
 
-itemRouter.get('/', async (req, res) => {
+const getProducts = async (req, res) => {
   const { q } = req.query
 
   if (q) {
@@ -14,9 +11,9 @@ itemRouter.get('/', async (req, res) => {
     const result = await itemContainer.getItems()
     res.status(200).json(result)
   }
-})
+}
 
-itemRouter.get('/:id', async (req, res) => {
+const getDetail = async (req, res) => {
   const { id } = req.params
   const result = await itemContainer.getItemById(parseInt(id))
 
@@ -25,6 +22,6 @@ itemRouter.get('/:id', async (req, res) => {
   } else {
     res.status(200).json(result)
   }
-})
+}
 
-export default itemRouter
+export { getProducts, getDetail }
