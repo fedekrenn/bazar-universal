@@ -7,8 +7,6 @@ import Header from '../../components/Header/Header.jsx'
 import ResultsSkeleton from '../../components/Skeleton/ResultsSkeleton/ResultsSkeleton.jsx'
 import Empty from '../../components/Empty/Empty.jsx'
 import Results from '../../components/Results/Result.jsx'
-// Utils
-import { getProducts } from '../../utils/getData.js'
 // Hooks
 import useSeo from '../../customHooks/useSeo.js'
 
@@ -22,7 +20,8 @@ export default function ResultsContainer() {
   useSeo({ title: `Búsqueda de "${category}"`, description: `Resultados de búsqueda de ${category}` })
 
   useEffect(() => {
-    getProducts(category)
+    fetch(`http://localhost:3000/api/items?q=${category}`)
+      .then(res => res.json())
       .then(data => {
         setLoading(false)
         setProducts(data)

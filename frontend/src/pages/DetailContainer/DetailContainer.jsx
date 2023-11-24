@@ -7,8 +7,6 @@ import Header from '../../components/Header/Header.jsx'
 import NotFound from '../NotFound/NotFound.jsx'
 import DetailSkeleton from '../../components/Skeleton/DetailSkeleton/DetailSkeleton.jsx'
 import Detail from '../../components/Detail/Detail.jsx'
-// Utils
-import { getProductById } from '../../utils/getData.js'
 // Hooks
 import useSeo from '../../customHooks/useSeo.js'
 
@@ -21,7 +19,11 @@ export default function DetailContainer() {
   useSeo({ title: product?.title, description: product?.description })
 
   useEffect(() => {
-    getProductById(parseInt(id))
+    fetch(`http://localhost:3000/api/items/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Producto no encontrado')
+        return res.json()
+      })
       .then(data => setProduct(data))
       .catch(err => setError(err))
       .finally(() => setLoading(false))
