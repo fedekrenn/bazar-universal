@@ -23,7 +23,7 @@ export default class Item {
   async getItemsByCategory (category) {
     try {
       const data = await this.getItems()
-      return data.filter(item => item.category.toLowerCase() === category.toLowerCase())
+      return data.filter(item => item.category.toLowerCase().includes(category.toLowerCase()))
     } catch (error) {
       console.log(error)
     }
