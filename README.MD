@@ -10,7 +10,7 @@ El proyecto consiste en un ecommerce de productos, versión mobile, donde se pue
 
 1 - Clonar el proyecto
 
-`git clone https://github.com/fedekrenn/full-stack-ecommerce.git`
+`git clone https://github.com/fedekrenn/bazar-universal.git`
 
 2- Instalar las dependencias de frontend y backend
 
@@ -21,7 +21,7 @@ El proyecto consiste en un ecommerce de productos, versión mobile, donde se pue
 
 `pnpm dev`
 
-4 - El frontend lee una variable de entorno llamada 'VITE_DEPLOY_ROUTE' para tomar una api externa que esté bajo deploy, de no existir este archivo .env tomará por default el localhost:3000. Para correr el proyecto con la api externa, crear un archivo .env en la carpeta frontend con la variable de entorno VITE_DEPLOY_ROUTE y asignarle el valor de la api externa.
+4 - El frontend lee una variable de entorno llamada `VITE_DEPLOY_ROUTE` para tomar una api externa que esté bajo deploy, de no existir este archivo .env tomará por default el localhost:3000. Para correr el proyecto con la api externa, crear un archivo .env en la carpeta frontend con el formato que encontrarás en el archivo `.env.example`
 
 5 - Abrir el navegador en http://localhost:5173/ para desplegar la aplicación con la vista de productos.
 
@@ -29,15 +29,23 @@ El proyecto consiste en un ecommerce de productos, versión mobile, donde se pue
 
 ### Detalle de producto
 
-`GET /api/items/:id`
+```
+GET
+
+/api/items/:id
+```
 
 Devuelve el detalle de un producto en particular, donde :id es el id del producto.
 
 ### Listado de productos
 
-`GET /api/items?q=:query`
+```
+GET
 
-Devuelve un listado de productos que coincidan con la búsqueda, donde :query es el término de búsqueda.
+/api/items?q=:query
+```
+
+Devuelve un listado de productos que coincidan con la búsqueda, donde `:query` es el término de búsqueda.
 
 ## 🛠 Tecnologías utilizadas
 
